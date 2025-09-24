@@ -1,11 +1,13 @@
 package com.chatbraille.api.entity;
 
 import jakarta.persistence.*;
+import lombok.Data;
 
 import java.time.LocalDateTime;
 
 @Entity
 @Table(name = "users")
+@Data
 public class User {
 
     @Id
@@ -40,5 +42,4 @@ public class User {
     @Column(name = "is_deleted", nullable = false)
     private Boolean isDeleted;
 
-    // Getters and setters...
 }
