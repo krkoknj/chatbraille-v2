@@ -1,5 +1,6 @@
 package com.chatbraille.api;
 
+import com.chatbraille.api.config.QuerydslConfig;
 import com.chatbraille.api.entity.Role;
 import com.chatbraille.api.entity.User;
 import com.chatbraille.api.entity.UserRole;
@@ -11,13 +12,16 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
+import org.springframework.context.annotation.Import;
 import org.springframework.transaction.annotation.Transactional;
 import static org.assertj.core.api.Assertions.assertThat;
 import java.time.LocalDateTime;
+import java.util.List;
 import java.util.Optional;
 
 @DataJpaTest
 @Transactional
+@Import(QuerydslConfig.class)
 class UserRoleRepositoryTest {
 
     @Autowired
@@ -67,6 +71,9 @@ class UserRoleRepositoryTest {
         // 5. 복합키를 이용한 조회 테스트
         Optional<UserRole> foundUserRole = userRoleRepository.findById(userRoleId);
         System.out.println("foundUserRole = " + foundUserRole);
+
+        List<User> activeUsers = userRepository.findActiveUsers();
+        System.out.println("activeUsers = " + activeUsers);
 
         // 6. 조회 결과 검증
         assertThat(foundUserRole).isPresent();
